@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  price DECIMAL(10,2) NOT NULL,
+  stock INT NOT NULL DEFAULT 0,
+  image VARCHAR(255) DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS orders (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT NOT NULL,
+  customer_name VARCHAR(255) NOT NULL,
+  phone VARCHAR(50) NOT NULL,
+  address TEXT NOT NULL,
+  total DECIMAL(10,2) NOT NULL,
+  status ENUM('bekliyor','odendi','iptal') NOT NULL DEFAULT 'bekliyor',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (product_id) REFERENCES products(id)
+) CHARSET=utf8mb4;
